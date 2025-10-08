@@ -79,6 +79,46 @@ const artworks = [
         year: 'Colección Universo',
         image: 'src/assets/images/Violincello.jpg',
         video: 'src/assets/videos/Violincello.mp4'
+    },
+    {
+        id: 'copas',
+        title: 'COPAS',
+        author: 'Byron',
+        year: 'Colección Universo',
+        image: 'src/assets/images/Copas.jpg',
+        video: 'src/assets/videos/Copas.mp4'
+    },
+    {
+        id: 'frutas',
+        title: 'FRUTAS',
+        author: 'Byron',
+        year: 'Colección Universo',
+        image: 'src/assets/images/Frutas.jpg',
+        video: 'src/assets/videos/Frutas.mp4'
+    },
+    {
+        id: 'maquillaje',
+        title: 'MAQUILLAJE',
+        author: 'Byron',
+        year: 'Colección Universo',
+        image: 'src/assets/images/Maquillaje.jpg',
+        video: 'src/assets/videos/Maquillaje.mp4'
+    },
+    {
+        id: 'vanidad',
+        title: 'VANIDAD',
+        author: 'Byron',
+        year: 'Colección Universo',
+        image: 'src/assets/images/Vanidad.jpg',
+        video: 'src/assets/videos/Vanidad.mp4'
+    },
+    {
+        id: 'vela2',
+        title: 'VELA 2',
+        author: 'Byron',
+        year: 'Colección Universo',
+        image: 'src/assets/images/Vela2.jpg',
+        video: 'src/assets/videos/Vela2.mp4'
     }
 ];
 

@@ -389,7 +389,7 @@ body {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
     border-radius: 17px;
-    padding: 15px 25px;
+    padding: 10px 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -666,7 +666,7 @@ body {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 17px;
-    padding: 17px;
+    padding: 4px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     overflow-x: auto;
     overflow-y: hidden;

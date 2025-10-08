@@ -431,16 +431,33 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(to bottom, #c8c8c8 0%, #d4d4d4 50%, #c8c8c8 100%);
     z-index: 1000;
     justify-content: center;
     align-items: center;
     animation: fadeIn 0.3s ease;
+    padding: 40px 20px;
 }
 
 .video-modal.active {
     display: flex;
+}
+
+/* Luz del museo en el modal */
+.video-modal::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 250px;
+    background: radial-gradient(ellipse at center top, 
+        rgba(255, 255, 255, 0.5) 0%, 
+        rgba(255, 255, 255, 0.3) 30%, 
+        transparent 70%);
+    filter: blur(30px);
+    pointer-events: none;
 }
 
 .close-modal {
@@ -469,42 +486,99 @@ body {
     transform: rotate(90deg) scale(1.1);
 }
 
+/* Gancho del modal */
+.modal-frame::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 20px;
+    background: linear-gradient(to bottom, #8b7355, #6d5a45);
+    border-radius: 5px 5px 0 0;
+    box-shadow: 
+        0 2px 5px rgba(0, 0, 0, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    z-index: 10;
+}
+
+.modal-frame::after {
+    content: '';
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    background: #4a4a4a;
+    border-radius: 50%;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
 .modal-frame {
     position: relative;
     max-width: 90vw;
-    max-height: 90vh;
+    max-height: 85vh;
+    animation: modalHang 0.6s ease-out;
+}
+
+@keyframes modalHang {
+    0% {
+        transform: translateY(-100px) scale(0.9);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(10px) scale(1.02);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
 }
 
 .frame-border-modal {
     position: relative;
     background: linear-gradient(145deg, #f5f0e8, #d4c8b0);
-    padding: 25px;
+    padding: 30px;
     border-radius: 2px;
     box-shadow: 
-        0 30px 80px rgba(0, 0, 0, 0.6),
-        0 10px 30px rgba(0, 0, 0, 0.4),
-        inset 0 0 0 2px rgba(255, 255, 255, 0.5),
-        inset 0 0 30px rgba(0, 0, 0, 0.08);
+        0 40px 100px rgba(0, 0, 0, 0.5),
+        0 20px 50px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 3px rgba(255, 255, 255, 0.5),
+        inset 0 0 40px rgba(0, 0, 0, 0.05);
 }
 
 .frame-border-modal::before {
     content: '';
     position: absolute;
-    inset: 15px;
-    border: 3px solid #8b7355;
+    inset: 20px;
+    border: 4px solid #8b7355;
     border-radius: 1px;
     box-shadow: 
-        0 0 0 1px rgba(255, 255, 255, 0.3),
-        inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+        0 0 0 2px rgba(255, 255, 255, 0.3),
+        inset 0 0 0 2px rgba(0, 0, 0, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Borde decorativo interno */
+.frame-border-modal::after {
+    content: '';
+    position: absolute;
+    inset: 26px;
+    border: 1px solid rgba(139, 115, 85, 0.3);
+    border-radius: 1px;
 }
 
 .modal-artwork-content {
     position: relative;
     width: 80vw;
-    max-width: 1200px;
+    max-width: 1400px;
     aspect-ratio: 16/9;
-    background: #000;
+    background: #1a1a1a;
     overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .modal-artwork-content img,
@@ -521,7 +595,7 @@ body {
 .modal-artwork-content img {
     z-index: 2;
     opacity: 1;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.8s ease;
 }
 
 .modal-artwork-content img.hidden {
@@ -535,35 +609,39 @@ body {
 
 .modal-plaque {
     position: absolute;
-    bottom: -70px;
+    bottom: -80px;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(145deg, #e8e8e8, #d0d0d0);
-    padding: 12px 25px;
+    padding: 15px 35px;
     border-radius: 3px;
     box-shadow: 
-        0 5px 15px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        0 8px 20px rgba(0, 0, 0, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.6),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    min-width: 250px;
+    min-width: 300px;
     color: var(--text-primary);
+    border: 1px solid rgba(200, 200, 200, 0.5);
 }
 
 .modal-plaque h3 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
-    margin-bottom: 4px;
-    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+    letter-spacing: 2px;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 .modal-plaque p {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-secondary);
-    margin: 2px 0;
+    margin: 3px 0;
 }
 
 .modal-plaque p:first-of-type {
     font-style: italic;
+    font-weight: 500;
 }
 
 /* Barra de miniaturas */
@@ -761,6 +839,109 @@ body {
     .thumbnail-item {
         width: 80px;
         height: 60px;
+    }
+    
+    /* Modal responsive */
+    .video-modal {
+        padding: 20px 10px;
+    }
+    
+    .modal-artwork-content {
+        width: 95vw;
+    }
+    
+    .frame-border-modal {
+        padding: 15px;
+    }
+    
+    .frame-border-modal::before {
+        inset: 12px;
+        border-width: 2px;
+    }
+    
+    .modal-plaque {
+        bottom: -65px;
+        padding: 8px 15px;
+        min-width: 180px;
+    }
+    
+    .modal-plaque h3 {
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+    
+    .modal-plaque p {
+        font-size: 10px;
+    }
+    
+    .close-modal {
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-artwork-content {
+        width: 90vw;
+    }
+    
+    .frame-border-modal {
+        padding: 20px;
+    }
+    
+    .frame-border-modal::before {
+        inset: 15px;
+        border-width: 3px;
+    }
+    
+    .modal-plaque {
+        bottom: -70px;
+        padding: 10px 20px;
+        min-width: 220px;
+    }
+    
+    .modal-plaque h3 {
+        font-size: 14px;
+        letter-spacing: 1.5px;
+    }
+    
+    .modal-plaque p {
+        font-size: 11px;
+    }
+    
+    .close-modal {
+        top: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .modal-artwork-content {
+        width: 85vw;
+    }
+    
+    .frame-border-modal {
+        padding: 25px;
+    }
+    
+    .modal-plaque {
+        bottom: -75px;
+        padding: 12px 25px;
+        min-width: 250px;
+    }
+    
+    .modal-plaque h3 {
+        font-size: 16px;
+    }
+    
+    .modal-plaque p {
+        font-size: 12px;
     }
 }
 

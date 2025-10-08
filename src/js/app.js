@@ -235,34 +235,20 @@ function loadArtwork(index, animate = true) {
 function updateArtworkContent(artwork) {
     console.log('updateArtworkContent called for:', artwork.title);
     
-    // Crear una imagen temporal para obtener las dimensiones reales
-    const tempImg = new Image();
-    tempImg.onload = function() {
-        const aspectRatio = this.naturalHeight / this.naturalWidth;
-        const artworkContent = document.querySelector('.artwork-content');
-        
-        if (!artworkContent) {
-            console.error('artworkContent not found!');
-            return;
-        }
-        
-        // Calcular altura basada en el ancho actual y la relación de aspecto
-        const currentWidth = artworkContent.offsetWidth;
-        const newHeight = currentWidth * aspectRatio;
-        
-        console.log('Setting height to:', newHeight, 'px (width:', currentWidth, 'aspect:', aspectRatio, ')');
-        
-        // Aplicar la altura calculada
-        artworkContent.style.height = newHeight + 'px';
-        
-        // Actualizar imagen
-        artworkImage.src = artwork.image;
-        console.log('Image updated to:', artwork.image);
-    };
-    tempImg.onerror = function() {
-        console.error('Failed to load image:', artwork.image);
-    };
-    tempImg.src = artwork.image;
+    const artworkContent = document.querySelector('.artwork-content');
+    
+    if (!artworkContent) {
+        console.error('artworkContent not found!');
+        return;
+    }
+    
+    // Resetear estilos para permitir ajuste natural
+    artworkContent.style.height = 'auto';
+    artworkContent.style.width = 'auto';
+    
+    // Actualizar imagen
+    artworkImage.src = artwork.image;
+    console.log('Image updated to:', artwork.image);
     
     // Actualizar información
     artworkTitle.textContent = artwork.title;
@@ -379,20 +365,6 @@ if (document.readyState === 'loading') {
 } else {
     init();
 }
-
-// Redimensionar el marco cuando cambia el tamaño de la ventana
-window.addEventListener('resize', () => {
-    const artwork = artworks[currentIndex];
-    const artworkContent = document.querySelector('.artwork-content');
-    const artworkImg = document.getElementById('artworkImage');
-    
-    if (artworkImg && artworkImg.complete && artworkImg.naturalWidth > 0) {
-        const aspectRatio = artworkImg.naturalHeight / artworkImg.naturalWidth;
-        const currentWidth = artworkContent.offsetWidth;
-        const newHeight = currentWidth * aspectRatio;
-        artworkContent.style.height = newHeight + 'px';
-    }
-});
 
 // Precargar videos para mejor experiencia
 function preloadVideos() {

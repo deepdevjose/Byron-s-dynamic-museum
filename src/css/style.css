@@ -61,9 +61,9 @@ body {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
-    border-radius: 30px;
-    padding: 30px;
-    max-width: 1400px;
+    border-radius: 25px;
+    padding: 20px;
+    max-width: 1200px;
     width: 100%;
     box-shadow: 
         0 8px 32px 0 rgba(0, 0, 0, 0.1),
@@ -77,25 +77,25 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 }
 
 .logo img {
-    height: 40px;
+    height: 34px;
     width: auto;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .logo span {
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 600;
     color: var(--text-primary);
     letter-spacing: 1px;
@@ -120,24 +120,24 @@ body {
 }
 
 .menu-btn:hover span {
-    background: var(--accent-color);
+    background: rgba(100, 100, 100, 0.8);
 }
 
 /* Pared del museo */
 .museum-wall {
     position: relative;
-    min-height: 70vh;
+    min-height: 55vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 60px 40px 40px;
-    margin-bottom: 40px;
+    padding: 45px 30px 30px;
+    margin-bottom: 30px;
 }
 
 /* Gancho de la pared */
 .wall-hook {
     position: absolute;
-    top: 30px;
+    top: -15px;
     left: 50%;
     transform: translateX(-50%);
     width: 40px;
@@ -243,12 +243,15 @@ body {
 
 .artwork-content {
     position: relative;
-    width: 700px;
-    max-width: 90vw;
+    width: auto;
+    max-width: 600px;
+    min-width: 250px;
+    max-height: 42vh;
     background: #000;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .artwork-content img,
@@ -257,14 +260,20 @@ body {
     height: 100%;
     object-fit: contain;
     display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+    max-height: 42vh;
+    max-width: 100%;
 }
 
 .artwork-content img {
     z-index: 1;
     transition: opacity 0.5s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.artwork-content img:hover {
+    opacity: 0.95;
 }
 
 .artwork-content video {
@@ -284,29 +293,29 @@ body {
 /* Placa informativa */
 .artwork-plaque {
     position: absolute;
-    bottom: -80px;
+    bottom: -68px;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(145deg, #e8e8e8, #d0d0d0);
-    padding: 12px 25px;
+    padding: 10px 20px;
     border-radius: 3px;
     box-shadow: 
         0 5px 15px rgba(0, 0, 0, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.5);
     text-align: center;
-    min-width: 250px;
+    min-width: 210px;
 }
 
 .artwork-plaque h3 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 4px;
-    letter-spacing: 1.5px;
+    margin-bottom: 3px;
+    letter-spacing: 1.3px;
 }
 
 .artwork-plaque p {
-    font-size: 12px;
+    font-size: 10px;
     color: var(--text-secondary);
     margin: 2px 0;
 }
@@ -369,7 +378,7 @@ body {
 .gallery-controls {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 18px;
 }
 
 /* Navegador de obras */
@@ -379,31 +388,34 @@ body {
     align-items: center;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 20px 30px;
+    border-radius: 17px;
+    padding: 15px 25px;
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .nav-btn {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 15px;
-    padding: 12px 24px;
-    font-size: 14px;
+    border-radius: 13px;
+    padding: 10px 20px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--text-primary);
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .nav-btn:hover {
-    background: var(--accent-color);
-    border-color: var(--accent-color);
-    color: white;
-    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(20px);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .nav-btn svg {
@@ -412,15 +424,16 @@ body {
 }
 
 .artwork-counter {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--text-primary);
     letter-spacing: 2px;
 }
 
 .artwork-counter #currentNumber {
-    font-size: 28px;
-    color: var(--accent-color);
+    font-size: 24px;
+    color: #666;
+    font-weight: 800;
 }
 
 /* Modal de video */
@@ -467,7 +480,8 @@ body {
     width: 50px;
     height: 50px;
     background: rgba(255, 255, 255, 0.9);
-    border: none;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 50%;
     font-size: 30px;
     color: #333;
@@ -481,9 +495,11 @@ body {
 }
 
 .close-modal:hover {
-    background: var(--accent-color);
-    color: white;
+    background: rgba(255, 255, 255, 1);
+    backdrop-filter: blur(20px);
+    border-color: rgba(255, 255, 255, 0.8);
     transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 /* Gancho del modal */
@@ -575,6 +591,7 @@ body {
     position: relative;
     width: 80vw;
     max-width: 1400px;
+    max-height: 75vh;
     aspect-ratio: 16/9;
     background: #1a1a1a;
     overflow: hidden;
@@ -648,47 +665,50 @@ body {
 .thumbnail-strip {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 17px;
+    padding: 17px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     overflow-x: auto;
     overflow-y: hidden;
 }
 
 .thumbnail-strip::-webkit-scrollbar {
-    height: 8px;
+    height: 6px;
 }
 
 .thumbnail-strip::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .thumbnail-strip::-webkit-scrollbar-thumb {
-    background: rgba(200, 90, 40, 0.5);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
 }
 
 .thumbnail-strip::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-color);
+    background: rgba(255, 255, 255, 0.6);
 }
 
 .thumbnail-container {
     display: flex;
-    gap: 15px;
-    padding: 5px;
+    gap: 12px;
+    padding: 4px;
 }
 
 .thumbnail-item {
     flex-shrink: 0;
-    width: 120px;
-    height: 90px;
+    width: 100px;
+    height: 75px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 7px;
     overflow: hidden;
     border: 3px solid transparent;
     transition: all 0.3s ease;
     position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
 }
 
 .thumbnail-item img {
@@ -699,17 +719,22 @@ body {
 }
 
 .thumbnail-item:hover {
-    border-color: rgba(200, 90, 40, 0.5);
-    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .thumbnail-item:hover img {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .thumbnail-item.active {
-    border-color: var(--accent-color);
-    box-shadow: 0 0 20px rgba(200, 90, 40, 0.5);
+    border-color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 .thumbnail-item::after {
@@ -736,8 +761,8 @@ body {
 /* Responsive */
 @media (max-width: 1024px) {
     .artwork-content {
-        width: 600px;
-        max-height: 70vh;
+        max-width: 600px;
+        max-height: 45vh;
     }
 
     .frame-border {
@@ -761,8 +786,18 @@ body {
     }
 
     .artwork-content {
-        width: 450px;
-        max-height: 60vh;
+        max-width: 450px;
+        min-width: 250px;
+        max-height: 40vh;
+        overflow: hidden;
+    }
+    
+    .artwork-content img,
+    .artwork-content video {
+        max-height: 40vh;
+        max-width: 100%;
+        width: auto;
+        height: auto;
     }
 
     .frame-border {
@@ -813,9 +848,19 @@ body {
     }
 
     .artwork-content {
-        width: 100%;
+        width: auto;
         max-width: 350px;
-        max-height: 50vh;
+        min-width: 200px;
+        max-height: 35vh;
+        overflow: hidden;
+    }
+    
+    .artwork-content img,
+    .artwork-content video {
+        max-height: 35vh;
+        max-width: 100%;
+        width: auto;
+        height: auto;
     }
 
     .frame-border {
@@ -843,15 +888,26 @@ body {
     
     /* Modal responsive */
     .video-modal {
-        padding: 20px 10px;
+        padding: 15px 10px;
     }
     
     .modal-artwork-content {
-        width: 95vw;
+        width: 85vw;
+        max-width: 500px;
+        max-height: 55vh;
+        aspect-ratio: auto;
+        min-height: 300px;
+    }
+    
+    .modal-artwork-content img,
+    .modal-artwork-content video {
+        object-fit: contain;
+        max-height: 100%;
+        max-width: 100%;
     }
     
     .frame-border-modal {
-        padding: 15px;
+        padding: 10px;
     }
     
     .frame-border-modal::before {
@@ -885,11 +941,22 @@ body {
 
 @media (max-width: 768px) {
     .modal-artwork-content {
-        width: 90vw;
+        width: 80vw;
+        max-width: 600px;
+        max-height: 60vh;
+        aspect-ratio: auto;
+        min-height: 350px;
+    }
+    
+    .modal-artwork-content img,
+    .modal-artwork-content video {
+        object-fit: contain;
+        max-height: 100%;
+        max-width: 100%;
     }
     
     .frame-border-modal {
-        padding: 20px;
+        padding: 14px;
     }
     
     .frame-border-modal::before {
@@ -924,6 +991,7 @@ body {
 @media (max-width: 1024px) {
     .modal-artwork-content {
         width: 85vw;
+        max-height: 65vh;
     }
     
     .frame-border-modal {

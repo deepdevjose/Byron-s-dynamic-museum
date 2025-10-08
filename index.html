@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museo Digital - Byron</title>
+    <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body>
+    <!-- Fondo con luces de museo -->
+    <div class="museum-lights">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+    </div>
+
+    <!-- Contenedor principal con efecto glass -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <img src="src/assets/images/Byron.png" alt="Byron Logo">
+                <span>MUSEO DIGITAL • VIDEOMAPPING INTERACTIVO</span>
+            </div>
+            <button class="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <!-- Pared del museo con cuadro principal -->
+        <main class="museum-wall">
+            <!-- Gancho de la pared -->
+            <div class="wall-hook"></div>
+            
+            <!-- Cuadro colgado en la pared -->
+            <div id="mainArtwork" class="hanging-artwork">
+                <div class="hanging-wire"></div>
+                <div class="artwork-frame">
+                    <div class="frame-border">
+                        <!-- Contenedor para imagen -->
+                        <div class="artwork-content">
+                            <img id="artworkImage" src="src/assets/images/Musicos - Byron.jpg" alt="Músicos">
+                        </div>
+                    </div>
+                </div>
+                <!-- Placa informativa -->
+                <div class="artwork-plaque">
+                    <h3 id="artworkTitle">MÚSICOS</h3>
+                    <p id="artworkAuthor">Byron</p>
+                    <p id="artworkYear">Colección Universo</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Navegación y controles -->
+        <div class="gallery-controls">
+            <!-- Navegador de obras -->
+            <div class="artwork-navigator">
+                <button id="prevBtn" class="nav-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                    </svg>
+                    <span>Anterior</span>
+                </button>
+                
+                <div class="artwork-counter">
+                    <span id="currentNumber">1</span> / <span id="totalNumber">10</span>
+                </div>
+                
+                <button id="nextBtn" class="nav-btn">
+                    <span>Siguiente</span>
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Miniaturas de navegación rápida -->
+            <div class="thumbnail-strip">
+                <div class="thumbnail-container" id="thumbnailContainer">
+                    <!-- Las miniaturas se generarán dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para reproducir video -->
+        <div id="videoModal" class="video-modal">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="modal-frame">
+                <div class="frame-border-modal">
+                    <div class="modal-artwork-content">
+                        <img id="modalImage" src="" alt="Obra">
+                        <video id="modalVideo" loop>
+                            <source id="modalVideoSource" src="" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+                <div class="modal-plaque">
+                    <h3 id="modalTitle">TÍTULO</h3>
+                    <p id="modalAuthor">Autor</p>
+                    <p id="modalYear">Año</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/js/app.js"></script>
+</body>
+</html>

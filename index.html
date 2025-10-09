@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Museo Digital - Byron</title>
-    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/main.css">
 </head>
 <body>
     <!-- Fondo con luces de museo -->
@@ -19,93 +19,126 @@
         <!-- Header -->
         <header class="header">
             <div class="logo">
-                <img src="src/assets/images/Byron.png" alt="Byron Logo">
-                <span>Museo Dinámico</span>
+                <span>Museo Digital - Byron</span>
             </div>
-            <button class="menu-btn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+        
+            <div class="header-actions">
+                <a href="museum.html" id="museumBtn" class="museum-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 11H7v6h2v-6zm4 0h-2v6h2v-6zm4 0h-2v6h2v-6zm2.5-9H19V1h-2v1H7V1H5v1H4.5C3.12 2 2.01 3.09 2.01 4.5L2 19.5C2 20.91 3.09 22 4.5 22h15c1.41 0 2.5-1.09 2.5-2.5v-15C22 3.09 20.91 2 19.5 2zM19.5 19.5h-15v-13h15v13z"/>
+                    </svg>
+                    <span>Visitar Museo</span>
+                </a>
+            </div>
         </header>
 
-        <!-- Pared del museo con cuadro principal -->
-        <main class="museum-wall">
-            <!-- Gancho de la pared -->
-            <div class="wall-hook"></div>
-            
-            <!-- Cuadro colgado en la pared -->
-            <div id="mainArtwork" class="hanging-artwork">
-                <div class="hanging-wire"></div>
-                <div class="artwork-frame">
-                    <div class="frame-border">
-                        <!-- Contenedor para imagen -->
-                        <div class="artwork-content">
-                            <img id="artworkImage" src="src/assets/images/Musicos - Byron.jpg" alt="Músicos">
+        <!-- Contenido principal del museo -->
+        <main class="museum-content">
+            <!-- Lado izquierdo - Foto de Byron -->
+            <div class="byron-portrait-section">
+                <!-- Gancho de la pared -->
+                <div class="wall-hook"></div>
+                
+                <!-- Cuadro colgado en la pared -->
+                <div id="byronPortrait" class="hanging-artwork">
+                    <div class="hanging-wire"></div>
+                    <div class="artwork-frame">
+                        <div class="frame-border">
+                            <!-- Contenedor para imagen de Byron -->
+                            <div class="artwork-content" id="byronImageContainer">
+                                <img id="byronImage" src="src/assets/images/Byron.png" alt="Byron" title="Click para escuchar">
+                                <!-- Indicador de audio -->
+                                <div class="audio-indicator">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <!-- Placa informativa -->
+                    <div class="artwork-plaque">
+                        <h3>Byron Gálvez</h3>
+                        <p>Artista Visual</p>
+                    </div>
                 </div>
-                <!-- Placa informativa -->
-                <div class="artwork-plaque">
-                    <h3 id="artworkTitle">MÚSICOS</h3>
-                    <p id="artworkAuthor">Byron</p>
-                    <p id="artworkYear">Colección Universo</p>
+            </div>
+
+            <!-- Lado derecho - Semblanza -->
+            <div class="byron-biography-section">
+                <div class="biography-content">
+                    <h2>Semblanza del Artista</h2>
+                    
+                    <!-- Bloque introductorio visible -->
+                    <div class="biography-intro">
+                        <div class="bio-block">
+                            <div class="bio-content">
+                                <h3>Origen e Inspiración</h3>
+                                <p>Byron Gálvez nació en 1941, en Mixquiahuala, Hidalgo, y creció en un ambiente natural y artístico. Su vocación se forjó temprano, influenciado por un padre apasionado por la literatura y la música. A los 16 años, se trasladó a la Ciudad de México con un objetivo central: ingresar a la Academia de San Carlos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón para biografía completa -->
+                    <div class="biography-actions">
+                        <button id="fullBiographyBtn" class="full-biography-btn">
+                            <span>Saber más</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </main>
 
-        <!-- Navegación y controles -->
-        <div class="gallery-controls">
-            <!-- Navegador de obras -->
-            <div class="artwork-navigator">
-                <button id="prevBtn" class="nav-btn">
+        <!-- Audio element para reproducir -->
+        <audio id="byronAudio" preload="metadata">
+            <source id="audioSource" src="src/assets/audio/main.mp3" type="audio/mpeg">
+            <source id="audioSourceMp3" src="src/assets/audio/main.mp3" type="audio/mpeg">
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+
+        <!-- Modal de biografía completa -->
+        <div id="biographyModal" class="biography-modal">
+            <div class="modal-overlay" id="modalOverlay"></div>
+            <div class="modal-content">
+                <button class="close-modal" id="closeBiographyModal">
                     <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-                    </svg>
-                    <span>Anterior</span>
-                </button>
-                
-                <div class="artwork-counter">
-                    <span id="currentNumber">1</span> / <span id="totalNumber">10</span>
-                </div>
-                
-                <button id="nextBtn" class="nav-btn">
-                    <span>Siguiente</span>
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
                     </svg>
                 </button>
-            </div>
-
-            <!-- Miniaturas de navegación rápida -->
-            <div class="thumbnail-strip">
-                <div class="thumbnail-container" id="thumbnailContainer">
-                    <!-- Las miniaturas se generarán dinámicamente -->
+                
+                <div class="modal-header">
+                    <h2>Byron Gálvez - Biografía Completa</h2>
                 </div>
-            </div>
-        </div>
-
-        <!-- Modal para reproducir video -->
-        <div id="videoModal" class="video-modal">
-            <button class="close-modal" id="closeModal">&times;</button>
-            <div class="modal-frame">
-                <div class="frame-border-modal">
-                    <div class="modal-artwork-content">
-                        <img id="modalImage" src="" alt="Obra">
-                        <video id="modalVideo" loop>
-                            <source id="modalVideoSource" src="" type="video/mp4">
-                        </video>
+                
+                <div class="biography-blocks">
+                    <!-- Bloque 1: Origen e Inspiración -->
+                    <div class="bio-block-full">
+                        <div class="bio-content">
+                            <h3>Origen e Inspiración</h3>
+                            <p>Byron Gálvez nació en 1941, en Mixquiahuala, Hidalgo, y creció en un ambiente natural y artístico. Su vocación se forjó temprano, influenciado por un padre apasionado por la literatura y la música. A los 16 años, se trasladó a la Ciudad de México con un objetivo central: ingresar a la Academia de San Carlos.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-plaque">
-                    <h3 id="modalTitle">TÍTULO</h3>
-                    <p id="modalAuthor">Autor</p>
-                    <p id="modalYear">Año</p>
+                    
+                    <!-- Bloque 2: Formación y Reconocimiento -->
+                    <div class="bio-block-full">
+                        <div class="bio-content">
+                            <h3>Maestro</h3>
+                            <p>Entre 1958 y 1964, Gálvez cursó sus estudios superiores y posgrado en pintura, forjándose con una generación de maestros de primer nivel. Poco después, montó su primera exposición individual. Un hito en su carrera fue la adquisición total de su obra por el actor Vincent Price, quien, asombrado por la capacidad productiva del artista, lo calificó como 'un Picasso mexicano'. A lo largo de su carrera, obtuvo más de 15 premios y menciones honoríficas.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Bloque 3: Legado y Visión -->
+                    <div class="bio-block-full">
+                        <div class="bio-content">
+                            <h3>Legado</h3>
+                            <p>La producción plástica de Gálvez abarca la escultura, el grabado, el dibujo y, principalmente, la pintura abstracta. Para su visión, fue fundamental viajar constantemente a Europa, visitando los museos más importantes del viejo mundo. Su obra forma parte de colecciones privadas en México y el extranjero, consolidando su lugar como un maestro que transformó la esencia de la cultura en arte.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="src/js/app.js"></script>
+    <script src="src/js/main.js"></script>
 </body>
 </html>

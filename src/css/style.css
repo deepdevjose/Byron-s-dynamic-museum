@@ -101,6 +101,51 @@ body {
     letter-spacing: 1px;
 }
 
+/* Acciones del header */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Botón de inicio */
+.home-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.home-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.home-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.home-btn span {
+    letter-spacing: 0.5px;
+}
+
 .menu-btn {
     background: transparent;
     border: none;
@@ -780,6 +825,24 @@ body {
         font-size: 10px;
     }
 
+    .header-actions {
+        gap: 10px;
+    }
+
+    .home-btn span {
+        display: none;
+    }
+
+    .home-btn {
+        padding: 10px 12px;
+        border-radius: 12px;
+    }
+
+    .home-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
     .museum-wall {
         padding: 40px 20px 20px;
         min-height: 60vh;
@@ -851,6 +914,10 @@ body {
         flex-direction: column;
         gap: 15px;
         text-align: center;
+    }
+
+    .header-actions {
+        justify-content: center;
     }
 
     .logo {

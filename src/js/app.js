@@ -4,7 +4,7 @@ const artworks = [
         id: 'musicos',
         title: 'MÚSICOS',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Musicos - Byron.jpg',
         video: 'src/assets/videos/Musicos - Byron.mp4'
     },
@@ -12,7 +12,7 @@ const artworks = [
         id: 'bailarina',
         title: 'BAILARINA',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Bailarina - Byron.jpg',
         video: 'src/assets/videos/Bailarina - Byron.mp4'
     },
@@ -20,15 +20,15 @@ const artworks = [
         id: 'musicosm',
         title: 'MÚSICOS M',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/MusicosM.jpg',
-        video: 'src/assets/videos/MusicosM.mp4'
+        video: 'src/assets/videos/MusicosM - Byron.mp4'
     },
     {
         id: 'amanecer',
         title: 'AMANECER',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Amanecer - Byron.jpeg',
         video: 'src/assets/videos/Amanecer - Byron.mp4'
     },
@@ -36,7 +36,7 @@ const artworks = [
         id: 'escultura-pie',
         title: 'ESCULTURA DE PIE',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Escultura de pie - Byron.jpg',
         video: 'src/assets/videos/Escultura de pie - Byron.mp4'
     },
@@ -44,7 +44,7 @@ const artworks = [
         id: 'naturaleza-muerta',
         title: 'NATURALEZA MUERTA',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Naturaleza Muerta - Byron.jpg',
         video: 'src/assets/videos/Naturaleza muerta - Byron.mp4'
     },
@@ -52,7 +52,7 @@ const artworks = [
         id: 'escultura-sentada',
         title: 'ESCULTURA SENTADA',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Escultura sentada - Byron.jpg',
         video: 'src/assets/videos/Escultura sentada - Byron.mp4'
     },
@@ -60,7 +60,7 @@ const artworks = [
         id: 'rocas-cielo',
         title: 'ROCAS Y CIELO',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Rocas y Cielo - Byron.jpg',
         video: 'src/assets/videos/Rocas y cielo - Byron.mp4'
     },
@@ -68,57 +68,57 @@ const artworks = [
         id: 'vela',
         title: 'VELA',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Vela.jpg',
-        video: 'src/assets/videos/Vela.mp4'
+        video: 'src/assets/videos/Vela - Byron.mp4'
     },
     {
         id: 'violincello',
         title: 'VIOLINCELLO',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Violincello.jpg',
-        video: 'src/assets/videos/Violincello.mp4'
+        video: 'src/assets/videos/Violincelo - Byron.mp4'
     },
     {
         id: 'copas',
         title: 'COPAS',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Copas.jpg',
-        video: 'src/assets/videos/Copas.mp4'
+        video: 'src/assets/videos/Copeo - Byron.mp4'
     },
     {
         id: 'frutas',
         title: 'FRUTAS',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Frutas.jpg',
-        video: 'src/assets/videos/Frutas.mp4'
+        video: 'src/assets/videos/Frutas - Byron.mp4'
     },
     {
         id: 'maquillaje',
         title: 'MAQUILLAJE',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Maquillaje.jpg',
-        video: 'src/assets/videos/Maquillaje.mp4'
+        video: 'src/assets/videos/Maquillaje - Byron.mp4'
     },
     {
         id: 'vanidad',
         title: 'VANIDAD',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Vanidad.jpg',
-        video: 'src/assets/videos/Vanidad.mp4'
+        video: 'src/assets/videos/Vanidad - Byron.mp4'
     },
     {
         id: 'vela2',
         title: 'VELA 2',
         author: 'Byron',
-        year: 'Colección Universo',
+        year: 'Byron',
         image: 'src/assets/images/Vela2.jpg',
-        video: 'src/assets/videos/Vela2.mp4'
+        video: 'src/assets/videos/Vela2 - Byron.mp4'
     }
 ];
 
@@ -131,7 +131,6 @@ let mainArtwork;
 let artworkImage;
 let artworkTitle;
 let artworkAuthor;
-let artworkYear;
 let currentNumber;
 let totalNumber;
 let prevBtn;
@@ -143,7 +142,6 @@ let modalVideo;
 let modalVideoSource;
 let modalTitle;
 let modalAuthor;
-let modalYear;
 let closeModal;
 
 // Inicializar
@@ -153,7 +151,6 @@ function init() {
     artworkImage = document.getElementById('artworkImage');
     artworkTitle = document.getElementById('artworkTitle');
     artworkAuthor = document.getElementById('artworkAuthor');
-    artworkYear = document.getElementById('artworkYear');
     currentNumber = document.getElementById('currentNumber');
     totalNumber = document.getElementById('totalNumber');
     prevBtn = document.getElementById('prevBtn');
@@ -165,7 +162,6 @@ function init() {
     modalVideoSource = document.getElementById('modalVideoSource');
     modalTitle = document.getElementById('modalTitle');
     modalAuthor = document.getElementById('modalAuthor');
-    modalYear = document.getElementById('modalYear');
     closeModal = document.getElementById('closeModal');
     
     // Establecer total de obras
@@ -282,6 +278,21 @@ function updateArtworkContent(artwork) {
         return;
     }
     
+    // Verificar que todos los elementos existen
+    if (!artworkImage) {
+        console.error('artworkImage element not found!');
+        return;
+    }
+    if (!artworkTitle) {
+        console.error('artworkTitle element not found!');
+        return;
+    }
+    if (!artworkAuthor) {
+        console.error('artworkAuthor element not found!');
+        return;
+    }
+
+    
     // Resetear estilos para permitir ajuste natural
     artworkContent.style.height = 'auto';
     artworkContent.style.width = 'auto';
@@ -293,7 +304,6 @@ function updateArtworkContent(artwork) {
     // Actualizar información
     artworkTitle.textContent = artwork.title;
     artworkAuthor.textContent = artwork.author;
-    artworkYear.textContent = artwork.year;
 }
 
 // Abrir modal con video
@@ -306,7 +316,6 @@ function openVideoModal() {
     modalVideo.load();
     modalTitle.textContent = artwork.title;
     modalAuthor.textContent = artwork.author;
-    modalYear.textContent = artwork.year;
     
     // Mostrar modal
     videoModal.classList.add('active');

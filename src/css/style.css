@@ -338,7 +338,7 @@ body {
 /* Placa informativa */
 .artwork-plaque {
     position: absolute;
-    bottom: -68px;
+    bottom: -55px;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(145deg, #e8e8e8, #d0d0d0);
@@ -946,7 +946,7 @@ body {
     }
 
     .artwork-plaque {
-        bottom: -70px;
+        bottom: -50px;
         min-width: 180px;
         max-width: 90vw;
         padding: 10px 15px;

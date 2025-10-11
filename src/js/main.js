@@ -189,3 +189,111 @@ if (document.readyState === 'loading') {
 } else {
     init();
 }
+
+// Estrategia de precarga inteligente para optimización de rendimiento
+function intelligentPreloading() {
+    // Lista de videos adicionales para precargar progresivamente
+    const additionalVideos = [
+        'src/assets/videos/Escultura de pie - Byron.mp4',
+        'src/assets/videos/Naturaleza muerta - Byron.mp4',
+        'src/assets/videos/Escultura sentada - Byron.mp4',
+        'src/assets/videos/Rocas y cielo - Byron.mp4',
+        'src/assets/videos/Vela - Byron.mp4',
+        'src/assets/videos/Violincelo - Byron.mp4'
+    ];
+    
+    // Lista de imágenes adicionales para precargar
+    const additionalImages = [
+        'src/assets/images/MusicosM.jpg',
+        'src/assets/images/Amanecer - Byron.jpeg',
+        'src/assets/images/Escultura de pie - Byron.jpg',
+        'src/assets/images/Naturaleza Muerta - Byron.jpg'
+    ];
+    
+    // Función para precargar un video
+    function preloadVideo(src) {
+        return new Promise((resolve, reject) => {
+            const video = document.createElement('video');
+            video.preload = 'metadata'; // Solo metadatos para ahorrar ancho de banda
+            video.onloadedmetadata = () => {
+                console.log(`Video precargado: ${src}`);
+                resolve(video);
+            };
+            video.onerror = () => {
+                console.warn(`Error precargando video: ${src}`);
+                reject();
+            };
+            video.src = src;
+        });
+    }
+    
+    // Función para precargar una imagen
+    function preloadImage(src) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => {
+                console.log(`Imagen precargada: ${src}`);
+                resolve(img);
+            };
+            img.onerror = () => {
+                console.warn(`Error precargando imagen: ${src}`);
+                reject();
+            };
+            img.src = src;
+        });
+    }
+    
+    // Precarga progresiva con throttling para no saturar la conexión
+    async function progressivePreload() {
+        // Esperar 3 segundos después de que la página esté completamente cargada
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        
+        // Precargar imágenes primero (son más pequeñas)
+        console.log('🖼️ Iniciando precarga de imágenes adicionales...');
+        for (const imageSrc of additionalImages) {
+            try {
+                await preloadImage(imageSrc);
+                // Pequeña pausa entre cada imagen
+                await new Promise(resolve => setTimeout(resolve, 500));
+            } catch (error) {
+                // Continuar con la siguiente imagen si una falla
+                continue;
+            }
+        }
+        
+        // Precargar videos progresivamente
+        console.log('🎬 Iniciando precarga de videos adicionales...');
+        for (const videoSrc of additionalVideos) {
+            try {
+                await preloadVideo(videoSrc);
+                // Pausa más larga entre videos para evitar saturar la conexión
+                await new Promise(resolve => setTimeout(resolve, 1500));
+            } catch (error) {
+                // Continuar con el siguiente video si uno falla
+                continue;
+            }
+        }
+        
+        console.log('✅ Precarga inteligente completada');
+    }
+    
+    // Iniciar precarga solo si la conexión es rápida
+    if (navigator.connection) {
+        const connection = navigator.connection;
+        // Solo precargar en conexiones rápidas (4G o mejor)
+        if (connection.effectiveType === '4g' || connection.downlink > 2) {
+            progressivePreload();
+        } else {
+            console.log('🐌 Conexión lenta detectada, omitiendo precarga adicional');
+        }
+    } else {
+        // Si no se puede detectar la conexión, asumir que es buena
+        progressivePreload();
+    }
+}
+
+// Iniciar precarga inteligente después de que todo esté listo
+window.addEventListener('load', () => {
+    // Esperar 2 segundos después del load completo
+    setTimeout(intelligentPreloading, 2000);
+});

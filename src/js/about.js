@@ -1,403 +1,129 @@
-// Datos de las obras de arte
-const artworks = [
-    {
-        id: 'musicos',
-        title: 'MÚSICOS',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Musicos - Byron.jpg',
-        video: 'src/assets/videos/Musicos - Byron.mp4'
+// Datos de los miembros del equipo
+const teamMembers = {
+    jose: {
+        name: 'José Manuel Cortés Cerón',
+        role: 'Project Manager & Lead Developer',
+        id: '230110688',
+        image: 'src/assets/team/jose.png',
+        description: 'José Manuel Cortés Cerón asumió un rol triple y fundamental como Project Manager, Lead Full-Stack Developer y WebGL Architect. Su liderazgo fue clave en la gestión integral del proyecto, definiendo el alcance, los cronogramas y la asignación de recursos del equipo. A nivel técnico, se desempeñó como arquitecto principal de WebGL, liderando el diseño y desarrollo de la arquitectura 3D mediante Three.js. Además, como Lead Full-Stack Developer, fue responsable de la implementación del frontend del sitio web, el pipeline de creación de contenido multimedia (videomapping) y la administración de la infraestructura tecnológica y del repositorio.'
     },
-    {
-        id: 'bailarina',
-        title: 'BAILARINA',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Bailarina - Byron.jpg',
-        video: 'src/assets/videos/Bailarina - Byron.mp4'
+    asael: {
+        name: 'Asael Manuel Otero Reyes',
+        role: 'QA Engineer',
+        id: '230110197',
+        image: 'src/assets/team/asael.jpg',
+        description: 'Asael Manuel Otero Reyes se desempeñó como QA Engineer (Ingeniero de Calidad de Software). Su principal responsabilidad fue garantizar la calidad, estabilidad y usabilidad del producto, ejecutando pruebas funcionales y de experiencia de usuario (UI/UX). También se encargó de la validación del motor 3D, la detección de errores críticos y su documentación (debugging), contribuyendo a mantener la solidez técnica del proyecto.'
     },
-    {
-        id: 'musicosm',
-        title: 'MÚSICOS M',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/MusicosM.jpg',
-        video: 'src/assets/videos/MusicosM - Byron.mp4'
+    monserrat: {
+        name: 'Aguilar Pérez Monserrat',
+        role: 'Junior TTS/LM Engineer',
+        id: '240110021',
+        image: 'src/assets/team/monse.jpg',
+        description: 'Aguilar Pérez Monserrat ocupó el puesto de Junior TTS/LM Engineer (Ingeniera Junior de Texto a Voz / Modelo de Lenguaje). Formó parte del equipo de ingeniería de voz con Python, colaborando en el desarrollo de un modelo de clonación de voz del artista. Además, participó en la generación y producción de videos de videomapping, así como en la composición digital para animaciones sutiles.'
     },
-    {
-        id: 'amanecer',
-        title: 'AMANECER',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Amanecer - Byron.jpeg',
-        video: 'src/assets/videos/Amanecer - Byron.mp4'
+    alan: {
+        name: 'Bautista Cruz Alan',
+        role: 'Junior TTS/LM Engineer',
+        id: '240110049',
+        image: 'src/assets/team/alan.jpg',
+        description: 'Bautista Cruz Alan desempeñó el cargo de Junior TTS/LM Engineer (Ingeniero Junior de Texto a Voz / Modelo de Lenguaje). Contribuyó significativamente al desarrollo del modelo de clonación de voz del artista en Python y participó en la creación y producción de videos de videomapping, además de colaborar en tareas de composición digital para animaciones.'
     },
-    {
-        id: 'escultura-pie',
-        title: 'ESCULTURA DE PIE',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Escultura de pie - Byron.jpg',
-        video: 'src/assets/videos/Escultura de pie - Byron.mp4'
-    },
-    {
-        id: 'naturaleza-muerta',
-        title: 'NATURALEZA MUERTA',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Naturaleza Muerta - Byron.jpg',
-        video: 'src/assets/videos/Naturaleza muerta - Byron.mp4'
-    },
-    {
-        id: 'escultura-sentada',
-        title: 'ESCULTURA SENTADA',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Escultura sentada - Byron.jpg',
-        video: 'src/assets/videos/Escultura sentada - Byron.mp4'
-    },
-    {
-        id: 'rocas-cielo',
-        title: 'ROCAS Y CIELO',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Rocas y Cielo - Byron.jpg',
-        video: 'src/assets/videos/Rocas y cielo - Byron.mp4'
-    },
-    {
-        id: 'vela',
-        title: 'VELA',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Vela.jpg',
-        video: 'src/assets/videos/Vela - Byron.mp4'
-    },
-    {
-        id: 'violincello',
-        title: 'VIOLINCELLO',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Violincello.jpg',
-        video: 'src/assets/videos/Violincelo - Byron.mp4'
-    },
-    {
-        id: 'copas',
-        title: 'COPAS',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Copas.jpg',
-        video: 'src/assets/videos/Copeo - Byron.mp4'
-    },
-    {
-        id: 'frutas',
-        title: 'FRUTAS',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Frutas.jpg',
-        video: 'src/assets/videos/Frutas - Byron.mp4'
-    },
-    {
-        id: 'maquillaje',
-        title: 'MAQUILLAJE',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Maquillaje.jpg',
-        video: 'src/assets/videos/Maquillaje - Byron.mp4'
-    },
-    {
-        id: 'vanidad',
-        title: 'VANIDAD',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Vanidad.jpg',
-        video: 'src/assets/videos/Vanidad - Byron.mp4'
-    },
-    {
-        id: 'vela2',
-        title: 'VELA 2',
-        author: 'Byron',
-        year: 'Byron',
-        image: 'src/assets/images/Vela2.jpg',
-        video: 'src/assets/videos/Vela2 - Byron.mp4'
+    alex: {
+        name: 'Calva Obregón Rembrandt Alexandre',
+        role: 'Junior TTS/LM Engineer',
+        id: '240110314',
+        image: 'src/assets/team/alex.jpg',
+        description: 'Calva Obregón Rembrandt Alexandre ocupó el puesto de Junior TTS/LM Engineer (Ingeniero Junior de Texto a Voz / Modelo de Lenguaje). Participó activamente en el desarrollo del modelo de clonación de voz con Python y apoyó en la producción audiovisual, incluyendo la generación de videos de videomapping y la composición digital para animaciones.'
     }
-];
+};
 
-// Variables globales
-let currentIndex = 0;
-let isChanging = false;
-
-// Elementos del DOM (se inicializarán en init())
-let mainArtwork;
-let artworkImage;
-let artworkTitle;
-let artworkAuthor;
-let artworkYear;
-let currentNumber;
-let totalNumber;
-let prevBtn;
-let nextBtn;
-let thumbnailContainer;
-let videoModal;
+// Elementos del DOM
+let modal;
+let modalOverlay;
+let closeModalBtn;
 let modalImage;
-let modalVideo;
-let modalVideoSource;
-let modalTitle;
-let modalAuthor;
-let modalYear;
-let closeModal;
+let modalName;
+let modalRole;
+let modalId;
+let modalDescription;
 
 // Inicializar
 function init() {
     // Obtener elementos del DOM
-    mainArtwork = document.getElementById('mainArtwork');
-    artworkImage = document.getElementById('artworkImage');
-    artworkTitle = document.getElementById('artworkTitle');
-    artworkAuthor = document.getElementById('artworkAuthor');
-    artworkYear = document.getElementById('artworkYear');
-    currentNumber = document.getElementById('currentNumber');
-    totalNumber = document.getElementById('totalNumber');
-    prevBtn = document.getElementById('prevBtn');
-    nextBtn = document.getElementById('nextBtn');
-    thumbnailContainer = document.getElementById('thumbnailContainer');
-    videoModal = document.getElementById('videoModal');
+    modal = document.getElementById('memberModal');
+    
+    if (!modal) {
+        console.error('Modal no encontrado');
+        return;
+    }
+    
+    modalOverlay = modal.querySelector('.modal-overlay');
+    closeModalBtn = document.getElementById('closeModal');
     modalImage = document.getElementById('modalImage');
-    modalVideo = document.getElementById('modalVideo');
-    modalVideoSource = document.getElementById('modalVideoSource');
-    modalTitle = document.getElementById('modalTitle');
-    modalAuthor = document.getElementById('modalAuthor');
-    modalYear = document.getElementById('modalYear');
-    closeModal = document.getElementById('closeModal');
+    modalName = document.getElementById('modalName');
+    modalRole = document.getElementById('modalRole');
+    modalId = document.getElementById('modalId');
+    modalDescription = document.getElementById('modalDescription');
     
-    // Establecer total de obras
-    totalNumber.textContent = artworks.length;
-    
-    // Generar miniaturas
-    generateThumbnails();
-    
-    // Cargar primera obra
-    loadArtwork(0, false);
-    
-    // Event listeners
-    prevBtn.addEventListener('click', () => {
-        console.log('Prev clicked');
-        previousArtwork();
-    });
-    nextBtn.addEventListener('click', () => {
-        console.log('Next clicked');
-        nextArtwork();
-    });
-    closeModal.addEventListener('click', closeVideoModal);
-    
-    // Click en la imagen para abrir modal con video
-    artworkImage.addEventListener('click', () => {
-        console.log('Image clicked');
-        openVideoModal();
+    // Event listeners para las cards
+    const cards = document.querySelectorAll('.card[data-member]');
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            const memberId = card.getAttribute('data-member');
+            openModal(memberId);
+        });
     });
     
-    // Cerrar modal al hacer click en el fondo
-    videoModal.addEventListener('click', (e) => {
-        if (e.target === videoModal) {
-            closeVideoModal();
+    // Event listeners para cerrar el modal
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
+    }
+    
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', closeModal);
+    }
+    
+    // Cerrar con tecla Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
         }
     });
     
-    // Cuando el video termina, volver a mostrarlo desde el inicio
-    modalVideo.addEventListener('ended', () => {
-        modalVideo.currentTime = 0;
-        modalVideo.play();
-    });
+    console.log('About page initialized with', cards.length, 'team members');
+}
+
+// Abrir modal con información del miembro
+function openModal(memberId) {
+    const member = teamMembers[memberId];
     
-    console.log('Initialized with', artworks.length, 'artworks');
-}
-
-// Generar miniaturas
-function generateThumbnails() {
-    artworks.forEach((artwork, index) => {
-        const thumbnail = document.createElement('div');
-        thumbnail.className = 'thumbnail-item';
-        if (index === 0) thumbnail.classList.add('active');
-        
-        const img = document.createElement('img');
-        img.src = artwork.image;
-        img.alt = artwork.title;
-        
-        thumbnail.appendChild(img);
-        thumbnail.addEventListener('click', () => changeArtwork(index));
-        
-        thumbnailContainer.appendChild(thumbnail);
-    });
-}
-
-// Cargar obra de arte
-function loadArtwork(index, animate = true) {
-    console.log('loadArtwork called:', index, 'animate:', animate);
-    if (isChanging && animate) {
-        console.log('Blocked - is changing');
+    if (!member) {
+        console.error('Miembro no encontrado:', memberId);
         return;
     }
     
-    const artwork = artworks[index];
-    currentIndex = index;
-    
-    if (animate) {
-        isChanging = true;
-        console.log('Starting unhang animation');
-        
-        // Animación de descolgar
-        mainArtwork.classList.add('unhang');
-        
-        setTimeout(() => {
-            console.log('Changing content to:', artwork.title);
-            // Cambiar contenido
-            updateArtworkContent(artwork);
-            
-            // Quitar clase unhang y agregar hang
-            mainArtwork.classList.remove('unhang');
-            mainArtwork.classList.add('hang');
-            
-            setTimeout(() => {
-                mainArtwork.classList.remove('hang');
-                isChanging = false;
-                console.log('Animation complete');
-            }, 1000);
-        }, 1000);
-    } else {
-        console.log('Loading without animation:', artwork.title);
-        updateArtworkContent(artwork);
-    }
-    
-    // Actualizar contador y miniaturas
-    currentNumber.textContent = index + 1;
-    updateThumbnailsActive(index);
-}
-
-// Actualizar contenido de la obra
-function updateArtworkContent(artwork) {
-    console.log('updateArtworkContent called for:', artwork.title);
-    
-    const artworkContent = document.querySelector('.artwork-content');
-    
-    if (!artworkContent) {
-        console.error('artworkContent not found!');
-        return;
-    }
-    
-    // Resetear estilos para permitir ajuste natural
-    artworkContent.style.height = 'auto';
-    artworkContent.style.width = 'auto';
-    
-    // Actualizar imagen
-    artworkImage.src = artwork.image;
-    console.log('Image updated to:', artwork.image);
-    
-    // Actualizar información
-    artworkTitle.textContent = artwork.title;
-    artworkAuthor.textContent = artwork.author;
-    artworkYear.textContent = artwork.year;
-}
-
-// Abrir modal con video
-function openVideoModal() {
-    const artwork = artworks[currentIndex];
-    
-    // Configurar modal
-    modalImage.src = artwork.image;
-    modalVideoSource.src = artwork.video;
-    modalVideo.load();
-    modalTitle.textContent = artwork.title;
-    modalAuthor.textContent = artwork.author;
-    modalYear.textContent = artwork.year;
+    // Actualizar contenido del modal
+    modalImage.src = member.image;
+    modalImage.alt = member.name;
+    modalName.textContent = member.name;
+    modalRole.textContent = member.role;
+    modalId.textContent = member.id;
+    modalDescription.textContent = member.description;
     
     // Mostrar modal
-    videoModal.classList.add('active');
+    modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // Mostrar imagen por 2 segundos, luego reproducir video
-    modalImage.classList.remove('hidden');
-    
-    setTimeout(() => {
-        modalImage.classList.add('hidden');
-        modalVideo.play();
-    }, 2000);
+    console.log('Modal abierto para:', member.name);
 }
 
-// Cerrar modal de video
-function closeVideoModal() {
-    modalVideo.pause();
-    modalVideo.currentTime = 0;
-    videoModal.classList.remove('active');
+// Cerrar modal
+function closeModal() {
+    modal.classList.remove('active');
     document.body.style.overflow = '';
-    modalImage.classList.remove('hidden');
+    
+    console.log('Modal cerrado');
 }
-
-// Actualizar miniaturas activas
-function updateThumbnailsActive(index) {
-    const thumbnails = document.querySelectorAll('.thumbnail-item');
-    thumbnails.forEach((thumb, i) => {
-        if (i === index) {
-            thumb.classList.add('active');
-            // Scroll para centrar la miniatura activa
-            thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        } else {
-            thumb.classList.remove('active');
-        }
-    });
-}
-
-// Cambiar obra de arte
-function changeArtwork(index) {
-    console.log('changeArtwork called:', index, 'currentIndex:', currentIndex, 'isChanging:', isChanging);
-    if (index === currentIndex || isChanging) {
-        console.log('Blocked - same index or is changing');
-        return;
-    }
-    loadArtwork(index, true);
-}
-
-// Obra anterior
-function previousArtwork() {
-    console.log('previousArtwork called, current:', currentIndex);
-    const newIndex = (currentIndex - 1 + artworks.length) % artworks.length;
-    console.log('newIndex:', newIndex);
-    changeArtwork(newIndex);
-}
-
-// Obra siguiente
-function nextArtwork() {
-    console.log('nextArtwork called, current:', currentIndex);
-    const newIndex = (currentIndex + 1) % artworks.length;
-    console.log('newIndex:', newIndex);
-    changeArtwork(newIndex);
-}
-
-// Atajos de teclado
-document.addEventListener('keydown', (e) => {
-    switch(e.key) {
-        case 'ArrowLeft':
-            e.preventDefault();
-            previousArtwork();
-            break;
-        case 'ArrowRight':
-            e.preventDefault();
-            nextArtwork();
-            break;
-        case 'Escape':
-            if (videoModal && videoModal.classList.contains('active')) {
-                closeVideoModal();
-            }
-            break;
-    }
-});
-
-// Navegación por números (1-0 para las 10 obras)
-document.addEventListener('keydown', (e) => {
-    const num = parseInt(e.key);
-    if (num >= 1 && num <= 9) {
-        changeArtwork(num - 1);
-    } else if (e.key === '0') {
-        changeArtwork(9);
-    }
-});
 
 // Inicializar cuando el DOM esté listo
 if (document.readyState === 'loading') {
@@ -405,17 +131,3 @@ if (document.readyState === 'loading') {
 } else {
     init();
 }
-
-// Precargar videos para mejor experiencia
-function preloadVideos() {
-    artworks.forEach((artwork, index) => {
-        if (index < 3) { // Precargar solo los primeros 3 videos
-            const video = document.createElement('video');
-            video.preload = 'metadata';
-            video.src = artwork.video;
-        }
-    });
-}
-
-// Precargar después de 2 segundos
-setTimeout(preloadVideos, 2000);

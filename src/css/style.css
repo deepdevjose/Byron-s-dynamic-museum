@@ -18,7 +18,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to bottom, #d4d4d4 0%, #e8e8e8 50%, #d4d4d4 100%);
+    background: url('../assets/images/bg.jpg') center center / cover no-repeat fixed;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -26,6 +26,19 @@ body {
     padding: 20px;
     position: relative;
     overflow-x: hidden;
+}
+
+/* Overlay sutil para mejorar contraste si es necesario */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    pointer-events: none;
+    z-index: 0;
 }
 
 /* Luces del museo */
@@ -48,7 +61,7 @@ body {
         rgba(255, 255, 255, 0.4) 0%, 
         rgba(255, 255, 255, 0.2) 30%, 
         transparent 70%);
-    filter: blur(20px);
+    filter: blur(50px);
 }
 
 .light:nth-child(1) { left: 20%; }
@@ -58,7 +71,7 @@ body {
 /* Contenedor principal con efecto glass */
 .container {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(7px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: 25px;
@@ -1141,3 +1154,29 @@ body {
         transform: translateX(100%);
     }
 }
+
+/* Video en pantalla completa para móviles */
+.fullscreen-video-mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    z-index: 9999;
+    object-fit: contain;
+}
+
+.fullscreen-video-mobile::-webkit-media-controls-panel {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Ocultar el modal en móviles cuando hay video en pantalla completa */
+body:has(.fullscreen-video-mobile) .video-modal {
+    display: none !important;
+}
+
+body:has(.fullscreen-video-mobile) .container {
+    display: none !important;
+}
+

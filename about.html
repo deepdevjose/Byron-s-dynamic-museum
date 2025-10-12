@@ -43,61 +43,96 @@
         <main class="about-container">
             <h1 class="title">Créditos del Proyecto</h1>
             <div class="credits-container">
-                <div class="card">
-                    <div class="card-avatar">
-                        <span class="card-initials">JC</span>
+                <div class="card" data-member="jose">
+                    <div class="card-image">
+                        <img src="src/assets/team/jose.png" alt="José Manuel Cortés Cerón">
+                        <div class="card-shine"></div>
                     </div>
                     <div class="card-content">
                         <h2>José Manuel Cortés Cerón</h2>
                         <div class="card-role">Project Manager & Lead Developer</div>
-                        <p><strong>Matrícula:</strong> 230110688</p>
+                        <div class="card-id">Ing. en Tecnologías de la Información y Comunicaciones</div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-avatar">
-                        <span class="card-initials">AO</span>
+                <div class="card" data-member="asael">
+                    <div class="card-image">
+                        <img src="src/assets/team/asael.jpg" alt="Asael Manuel Otero Reyes">
+                        <div class="card-shine"></div>
                     </div>
                     <div class="card-content">
                         <h2>Asael Manuel Otero Reyes</h2>
                         <div class="card-role">QA Engineer</div>
-                        <p><strong>Matrícula:</strong> 230110197</p>
+                        <div class="card-id">Ing. en Tecnologías de la Información y Comunicaciones</div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-avatar">
-                        <span class="card-initials">AP</span>
+                <div class="card" data-member="monserrat">
+                    <div class="card-image">
+                        <img src="src/assets/team/monse.jpg" alt="Aguilar Pérez Monserrat">
+                        <div class="card-shine"></div>
                     </div>
                     <div class="card-content">
                         <h2>Aguilar Pérez Monserrat</h2>
                         <div class="card-role">Junior TTS/LM Engineer</div>
-                        <p><strong>Matrícula:</strong> 240110021</p>
+                        <div class="card-id">Ing. en Tecnologías de la Información y Comunicaciones</div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-avatar">
-                        <span class="card-initials">BC</span>
+                <div class="card" data-member="alan">
+                    <div class="card-image">
+                        <img src="src/assets/team/alan.jpg" alt="Bautista Cruz Alan">
+                        <div class="card-shine"></div>
                     </div>
                     <div class="card-content">
                         <h2>Bautista Cruz Alan</h2>
                         <div class="card-role">Junior TTS/LM Engineer</div>
-                        <p><strong>Matrícula:</strong> 240110049</p>
+                        <div class="card-id">Ing. en Tecnologías de la Información y Comunicaciones</div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-avatar">
-                        <span class="card-initials">CO</span>
+                <div class="card" data-member="alex">
+                    <div class="card-image">
+                        <img src="src/assets/team/alex.jpg" alt="Calva Obregón Rembrandt Alexandre">
+                        <div class="card-shine"></div>
                     </div>
                     <div class="card-content">
                         <h2>Calva Obregón Rembrandt Alexandre</h2>
                         <div class="card-role">Junior TTS/LM Engineer</div>
-                        <p><strong>Matrícula:</strong> 240110314</p>
+                        <div class="card-id">Ing. en Tecnologías de la Información y Comunicaciones</div>
                     </div>
                 </div>
             </div>
         </main>
+        
+        <!-- Modal de detalles del miembro -->
+        <div id="memberModal" class="member-modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-container">
+                <button class="modal-close" id="closeModal">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-avatar">
+                            <img id="modalImage" src="" alt="">
+                        </div>
+                        <div class="modal-info">
+                            <h2 id="modalName"></h2>
+                            <div id="modalRole" class="modal-role"></div>
+                            <div id="modalDegree" class="modal-degree"></div>
+                            <div id="modalSemester" class="modal-semester"></div>
+                            <div id="modalId" class="modal-id"></div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Contribuciones al Proyecto</h3>
+                        <div id="modalDescription" class="modal-description"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="src/js/main.js"></script>
+    <script src="src/js/about.js"></script>
 </body>
 
 </html>

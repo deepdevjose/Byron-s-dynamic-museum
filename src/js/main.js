@@ -192,7 +192,14 @@ if (document.readyState === 'loading') {
 
 // Estrategia de precarga inteligente para optimización de rendimiento
 function intelligentPreloading() {
-    // Lista de videos adicionales para precargar progresivamente
+    // Lista de videos adicionales para precargar progresivamente (solo primeros segundos)
+    const priorityVideos = [
+        { src: 'src/assets/videos/Musicos - Byron.mp4', priority: 1 },
+        { src: 'src/assets/videos/Bailarina - Byron.mp4', priority: 1 },
+        { src: 'src/assets/videos/MusicosM - Byron.mp4', priority: 2 },
+        { src: 'src/assets/videos/Amanecer - Byron.mp4', priority: 2 }
+    ];
+    
     const additionalVideos = [
         'src/assets/videos/Escultura de pie - Byron.mp4',
         'src/assets/videos/Naturaleza muerta - Byron.mp4',
@@ -210,20 +217,38 @@ function intelligentPreloading() {
         'src/assets/images/Naturaleza Muerta - Byron.jpg'
     ];
     
-    // Función para precargar un video
-    function preloadVideo(src) {
+    // Función para precargar solo los primeros segundos de un video (estilo Spotify)
+    function preloadVideoChunk(src) {
         return new Promise((resolve, reject) => {
             const video = document.createElement('video');
-            video.preload = 'metadata'; // Solo metadatos para ahorrar ancho de banda
-            video.onloadedmetadata = () => {
-                console.log(`Video precargado: ${src}`);
+            video.preload = 'auto'; // Cargar datos iniciales
+            
+            const onCanPlay = () => {
+                console.log(`✅ Video chunk precargado: ${src.split('/').pop()}`);
+                cleanup();
                 resolve(video);
             };
-            video.onerror = () => {
-                console.warn(`Error precargando video: ${src}`);
+            
+            const onError = () => {
+                console.warn(`⚠️ Error precargando video: ${src.split('/').pop()}`);
+                cleanup();
                 reject();
             };
+            
+            const cleanup = () => {
+                video.removeEventListener('canplay', onCanPlay);
+                video.removeEventListener('error', onError);
+            };
+            
+            video.addEventListener('canplay', onCanPlay, { once: true });
+            video.addEventListener('error', onError, { once: true });
             video.src = src;
+            
+            // Timeout de seguridad
+            setTimeout(() => {
+                cleanup();
+                resolve(video);
+            }, 5000);
         });
     }
     
@@ -232,68 +257,93 @@ function intelligentPreloading() {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = () => {
-                console.log(`Imagen precargada: ${src}`);
+                console.log(`✅ Imagen precargada: ${src.split('/').pop()}`);
                 resolve(img);
             };
             img.onerror = () => {
-                console.warn(`Error precargando imagen: ${src}`);
+                console.warn(`⚠️ Error precargando imagen: ${src.split('/').pop()}`);
                 reject();
             };
             img.src = src;
         });
     }
     
-    // Precarga progresiva con throttling para no saturar la conexión
+    // Precarga progresiva con prioridades
     async function progressivePreload() {
-        // Esperar 3 segundos después de que la página esté completamente cargada
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        // Esperar 2 segundos después de que la página esté completamente cargada
+        await new Promise(resolve => setTimeout(resolve, 2000));
         
-        // Precargar imágenes primero (son más pequeñas)
-        console.log('🖼️ Iniciando precarga de imágenes adicionales...');
-        for (const imageSrc of additionalImages) {
+        console.log('🎬 Iniciando precarga inteligente de videos prioritarios...');
+        
+        // Precargar videos de alta prioridad primero
+        for (const videoInfo of priorityVideos) {
             try {
-                await preloadImage(imageSrc);
-                // Pequeña pausa entre cada imagen
-                await new Promise(resolve => setTimeout(resolve, 500));
+                await preloadVideoChunk(videoInfo.src);
+                // Pausa breve entre videos
+                await new Promise(resolve => setTimeout(resolve, 400));
             } catch (error) {
-                // Continuar con la siguiente imagen si una falla
                 continue;
             }
         }
         
-        // Precargar videos progresivamente
-        console.log('🎬 Iniciando precarga de videos adicionales...');
-        for (const videoSrc of additionalVideos) {
+        // Precargar imágenes (son más ligeras)
+        console.log('🖼️ Precargando imágenes adicionales...');
+        for (const imageSrc of additionalImages) {
             try {
-                await preloadVideo(videoSrc);
-                // Pausa más larga entre videos para evitar saturar la conexión
-                await new Promise(resolve => setTimeout(resolve, 1500));
+                await preloadImage(imageSrc);
+                await new Promise(resolve => setTimeout(resolve, 200));
             } catch (error) {
-                // Continuar con el siguiente video si uno falla
                 continue;
+            }
+        }
+        
+        // Solo precargar videos adicionales si la conexión es buena
+        if (shouldPreloadAdditional()) {
+            console.log('🎬 Precargando videos adicionales...');
+            for (const videoSrc of additionalVideos) {
+                try {
+                    await preloadVideoChunk(videoSrc);
+                    // Pausa más larga para no saturar
+                    await new Promise(resolve => setTimeout(resolve, 800));
+                } catch (error) {
+                    continue;
+                }
             }
         }
         
         console.log('✅ Precarga inteligente completada');
     }
     
-    // Iniciar precarga solo si la conexión es rápida
-    if (navigator.connection) {
-        const connection = navigator.connection;
-        // Solo precargar en conexiones rápidas (4G o mejor)
-        if (connection.effectiveType === '4g' || connection.downlink > 2) {
-            progressivePreload();
-        } else {
-            console.log('🐌 Conexión lenta detectada, omitiendo precarga adicional');
+    // Determinar si se deben precargar recursos adicionales
+    function shouldPreloadAdditional() {
+        // Verificar conexión del usuario
+        if (navigator.connection) {
+            const connection = navigator.connection;
+            // Solo precargar en conexiones rápidas (4G o mejor)
+            const isFastConnection = connection.effectiveType === '4g' || 
+                                    connection.downlink > 2;
+            
+            if (!isFastConnection) {
+                console.log('🐌 Conexión lenta detectada, limitando precarga');
+                return false;
+            }
         }
-    } else {
-        // Si no se puede detectar la conexión, asumir que es buena
-        progressivePreload();
+        
+        // No precargar si el usuario está en modo ahorro de datos
+        if (navigator.connection && navigator.connection.saveData) {
+            console.log('💾 Modo ahorro de datos activo, omitiendo precarga adicional');
+            return false;
+        }
+        
+        return true;
     }
+    
+    // Iniciar precarga
+    progressivePreload();
 }
 
 // Iniciar precarga inteligente después de que todo esté listo
 window.addEventListener('load', () => {
-    // Esperar 2 segundos después del load completo
-    setTimeout(intelligentPreloading, 2000);
+    // Esperar 1.5 segundos después del load completo
+    setTimeout(intelligentPreloading, 1500);
 });

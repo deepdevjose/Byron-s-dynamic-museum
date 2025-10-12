@@ -125,6 +125,8 @@ const artworks = [
 // Variables globales
 let currentIndex = 0;
 let isChanging = false;
+let isMobile = false;
+let videoCache = new Map(); // Cache para videos precargados
 
 // Elementos del DOM (se inicializarán en init())
 let mainArtwork;
@@ -144,8 +146,131 @@ let modalTitle;
 let modalAuthor;
 let closeModal;
 
+// Detectar si es dispositivo móvil
+function detectMobile() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i;
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isSmallScreen = window.innerWidth <= 768;
+    
+    return mobileRegex.test(userAgent.toLowerCase()) || (isTouchDevice && isSmallScreen);
+}
+
+// Sistema de precarga progresiva de videos (estilo Spotify)
+class VideoPreloader {
+    constructor() {
+        this.preloadQueue = [];
+        this.currentlyPreloading = null;
+        this.maxCacheSize = 5; // Máximo de videos en cache
+    }
+    
+    // Precargar los primeros 2-3 segundos de un video
+    async preloadVideoChunk(videoUrl, artworkId) {
+        if (videoCache.has(artworkId)) {
+            console.log(`✅ Video ya en cache: ${artworkId}`);
+            return videoCache.get(artworkId);
+        }
+        
+        return new Promise((resolve, reject) => {
+            const video = document.createElement('video');
+            video.preload = 'auto'; // Cargar lo que sea posible
+            video.src = videoUrl;
+            
+            // Manejar cuando se carguen los primeros datos
+            const onCanPlay = () => {
+                console.log(`✅ Video precargado (primeros segundos): ${artworkId}`);
+                
+                // Guardar en cache
+                if (videoCache.size >= this.maxCacheSize) {
+                    // Eliminar el video más antiguo
+                    const firstKey = videoCache.keys().next().value;
+                    const oldVideo = videoCache.get(firstKey);
+                    if (oldVideo && oldVideo.src) {
+                        oldVideo.src = '';
+                    }
+                    videoCache.delete(firstKey);
+                }
+                
+                videoCache.set(artworkId, video);
+                cleanup();
+                resolve(video);
+            };
+            
+            const onError = () => {
+                console.warn(`⚠️ Error precargando video: ${artworkId}`);
+                cleanup();
+                reject();
+            };
+            
+            const cleanup = () => {
+                video.removeEventListener('canplay', onCanPlay);
+                video.removeEventListener('error', onError);
+            };
+            
+            video.addEventListener('canplay', onCanPlay, { once: true });
+            video.addEventListener('error', onError, { once: true });
+            
+            // Timeout de seguridad
+            setTimeout(() => {
+                if (!videoCache.has(artworkId)) {
+                    console.warn(`⏱️ Timeout precargando video: ${artworkId}`);
+                    cleanup();
+                    reject();
+                }
+            }, 5000);
+        });
+    }
+    
+    // Precargar video actual y los 2 siguientes
+    async preloadCurrentAndNext(currentIdx) {
+        const videosToPreload = [];
+        
+        // Video actual
+        videosToPreload.push({
+            index: currentIdx,
+            artwork: artworks[currentIdx],
+            priority: 1
+        });
+        
+        // Siguiente
+        const nextIdx = (currentIdx + 1) % artworks.length;
+        videosToPreload.push({
+            index: nextIdx,
+            artwork: artworks[nextIdx],
+            priority: 2
+        });
+        
+        // Siguiente del siguiente
+        const nextNextIdx = (currentIdx + 2) % artworks.length;
+        videosToPreload.push({
+            index: nextNextIdx,
+            artwork: artworks[nextNextIdx],
+            priority: 3
+        });
+        
+        // Precargar en orden de prioridad
+        for (const item of videosToPreload) {
+            if (!videoCache.has(item.artwork.id)) {
+                try {
+                    await this.preloadVideoChunk(item.artwork.video, item.artwork.id);
+                    // Pequeña pausa entre precargas
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                } catch (error) {
+                    console.warn(`Error precargando video ${item.artwork.id}:`, error);
+                }
+            }
+        }
+    }
+}
+
+const videoPreloader = new VideoPreloader();
+
 // Inicializar
 function init() {
+    // Detectar si es móvil
+    isMobile = detectMobile();
+    console.log(isMobile ? '📱 Modo móvil detectado' : '💻 Modo escritorio detectado');
+    
     // Obtener elementos del DOM
     mainArtwork = document.getElementById('mainArtwork');
     artworkImage = document.getElementById('artworkImage');
@@ -190,18 +315,32 @@ function init() {
         openVideoModal();
     });
     
-    // Cerrar modal al hacer click en el fondo
-    videoModal.addEventListener('click', (e) => {
-        if (e.target === videoModal) {
-            closeVideoModal();
-        }
-    });
+    // Cerrar modal al hacer click en el fondo (solo en escritorio)
+    if (!isMobile) {
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                closeVideoModal();
+            }
+        });
+    }
     
     // Cuando el video termina, volver a mostrarlo desde el inicio
     modalVideo.addEventListener('ended', () => {
         modalVideo.currentTime = 0;
         modalVideo.play();
     });
+    
+    // Listener para salir de pantalla completa
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+    
+    // Iniciar precarga progresiva después de 1 segundo
+    setTimeout(() => {
+        console.log('🎬 Iniciando precarga de videos...');
+        videoPreloader.preloadCurrentAndNext(currentIndex);
+    }, 1000);
     
     console.log('Initialized with', artworks.length, 'artworks');
 }
@@ -307,15 +446,34 @@ function updateArtworkContent(artwork) {
 }
 
 // Abrir modal con video
-function openVideoModal() {
+async function openVideoModal() {
     const artwork = artworks[currentIndex];
     
+    // Si es móvil, ir directamente a pantalla completa
+    if (isMobile) {
+        await playVideoFullscreen(artwork);
+        return;
+    }
+    
+    // Modo escritorio: mostrar modal con frame decorativo
     // Configurar modal
     modalImage.src = artwork.image;
-    modalVideoSource.src = artwork.video;
-    modalVideo.load();
     modalTitle.textContent = artwork.title;
     modalAuthor.textContent = artwork.author;
+    
+    // Usar video del cache si está disponible
+    let videoElement;
+    if (videoCache.has(artwork.id)) {
+        console.log('🚀 Usando video del cache');
+        videoElement = videoCache.get(artwork.id);
+        // Clonar el video para el modal
+        modalVideoSource.src = videoElement.src;
+    } else {
+        console.log('⏳ Cargando video...');
+        modalVideoSource.src = artwork.video;
+    }
+    
+    modalVideo.load();
     
     // Mostrar modal
     videoModal.classList.add('active');
@@ -326,8 +484,100 @@ function openVideoModal() {
     
     setTimeout(() => {
         modalImage.classList.add('hidden');
-        modalVideo.play();
+        modalVideo.play().catch(err => {
+            console.error('Error reproduciendo video:', err);
+        });
     }, 2000);
+}
+
+// Reproducir video en pantalla completa (móviles)
+async function playVideoFullscreen(artwork) {
+    console.log('📱 Reproduciendo en pantalla completa');
+    
+    // Crear un video temporal para pantalla completa
+    const fullscreenVideo = document.createElement('video');
+    fullscreenVideo.className = 'fullscreen-video-mobile';
+    fullscreenVideo.controls = true;
+    fullscreenVideo.autoplay = true;
+    fullscreenVideo.playsInline = false; // Forzar pantalla completa en iOS
+    
+    // Usar video del cache si está disponible
+    if (videoCache.has(artwork.id)) {
+        console.log('🚀 Usando video del cache para pantalla completa');
+        const cachedVideo = videoCache.get(artwork.id);
+        fullscreenVideo.src = cachedVideo.src;
+    } else {
+        console.log('⏳ Cargando video para pantalla completa...');
+        fullscreenVideo.src = artwork.video;
+    }
+    
+    // Agregar al DOM
+    document.body.appendChild(fullscreenVideo);
+    
+    // Esperar a que el video esté listo
+    fullscreenVideo.addEventListener('loadedmetadata', async () => {
+        try {
+            // Intentar entrar en pantalla completa
+            if (fullscreenVideo.requestFullscreen) {
+                await fullscreenVideo.requestFullscreen();
+            } else if (fullscreenVideo.webkitRequestFullscreen) {
+                await fullscreenVideo.webkitRequestFullscreen();
+            } else if (fullscreenVideo.mozRequestFullScreen) {
+                await fullscreenVideo.mozRequestFullScreen();
+            } else if (fullscreenVideo.msRequestFullscreen) {
+                await fullscreenVideo.msRequestFullscreen();
+            } else if (fullscreenVideo.webkitEnterFullscreen) {
+                // Para iOS
+                fullscreenVideo.webkitEnterFullscreen();
+            }
+            
+            // Reproducir
+            await fullscreenVideo.play();
+        } catch (err) {
+            console.error('Error activando pantalla completa:', err);
+            // Si falla pantalla completa, reproducir de todas formas
+            fullscreenVideo.play();
+        }
+    });
+    
+    // Cuando termine o salga de pantalla completa, limpiar
+    const cleanup = () => {
+        fullscreenVideo.pause();
+        fullscreenVideo.src = '';
+        document.body.removeChild(fullscreenVideo);
+    };
+    
+    fullscreenVideo.addEventListener('ended', cleanup);
+    fullscreenVideo.addEventListener('pause', () => {
+        // Esperar un poco antes de limpiar por si el usuario pausó
+        setTimeout(() => {
+            if (fullscreenVideo.paused && document.body.contains(fullscreenVideo)) {
+                cleanup();
+            }
+        }, 500);
+    });
+}
+
+// Manejar cambios de pantalla completa
+function handleFullscreenChange() {
+    const isFullscreen = !!(document.fullscreenElement || 
+                           document.webkitFullscreenElement || 
+                           document.mozFullScreenElement || 
+                           document.msFullscreenElement);
+    
+    if (!isFullscreen && isMobile) {
+        // El usuario salió de pantalla completa en móvil
+        const fullscreenVideo = document.querySelector('.fullscreen-video-mobile');
+        if (fullscreenVideo) {
+            fullscreenVideo.pause();
+            setTimeout(() => {
+                if (document.body.contains(fullscreenVideo)) {
+                    fullscreenVideo.src = '';
+                    document.body.removeChild(fullscreenVideo);
+                }
+            }, 300);
+        }
+    }
 }
 
 // Cerrar modal de video
@@ -361,6 +611,11 @@ function changeArtwork(index) {
         return;
     }
     loadArtwork(index, true);
+    
+    // Precargar videos relacionados con esta nueva obra
+    setTimeout(() => {
+        videoPreloader.preloadCurrentAndNext(index);
+    }, 500);
 }
 
 // Obra anterior
@@ -414,17 +669,3 @@ if (document.readyState === 'loading') {
 } else {
     init();
 }
-
-// Precargar videos para mejor experiencia
-function preloadVideos() {
-    artworks.forEach((artwork, index) => {
-        if (index < 3) { // Precargar solo los primeros 3 videos
-            const video = document.createElement('video');
-            video.preload = 'metadata';
-            video.src = artwork.video;
-        }
-    });
-}
-
-// Precargar después de 2 segundos
-setTimeout(preloadVideos, 2000);

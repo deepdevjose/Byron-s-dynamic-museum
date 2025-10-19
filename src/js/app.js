@@ -119,6 +119,78 @@ const artworks = [
         year: 'Byron',
         image: 'src/assets/images/Vela2.jpg',
         video: 'src/assets/videos/Vela2 - Byron.mp4'
+    },
+    {
+        id: 'baile',
+        title: 'BAILE',
+        author: 'Byron',
+        year: 'Byron',
+        image: 'src/assets/images/Baile - Byron.jpg',
+        video: 'src/assets/videos/Baile - Byron.mp4'
+    },
+    {
+        id: 'byron',
+        title: 'BYRON',
+        author: 'Byron',
+        year: 'Byron',
+        image: 'src/assets/images/Byron - Byron.jpg',
+        video: 'src/assets/videos/Byron - Byron.mp4'
+    },
+    {
+        id: 'compositoras',
+        title: 'COMPOSITORAS',
+        author: 'Byron',
+        year: 'Byron',
+        image: 'src/assets/images/Compositoras - Byron.jpg',
+        video: 'src/assets/videos/Compositoras - Byron.mp4'
+    },
+    {
+        id: 'flautista',
+        title: 'FLAUTISTA',
+        author: 'Byron',
+        year: 'Byron',
+        image: 'src/assets/images/Flautista - Byron.jpg',
+        video: 'src/assets/videos/Flautista - Byron.mp4'
+    },
+    {
+        id: 'luz',
+        title: 'LUZ',
+        author: 'Byron',
+        year: 'Byron',
+        image: 'src/assets/images/Luz - Byron.jpg',
+        video: 'src/assets/videos/Luz - Byron.mp4'
+    },
+    {
+        id: 'mosaico-homenaje',
+        title: 'MOSAICO HOMENAJE A LA MUJER',
+        author: 'Byron',
+        year: 'Byron',
+        image: 'src/assets/images/Mosaico Homenaje a la Mujer - Byron .jpg',
+        video: 'src/assets/videos/Mosaico - Byron.mp4'
+    },
+    {
+        id: 'mujer-veladora',
+        title: 'MUJER VELADORA',
+        author: 'Byron',
+        year: 'Byron',
+        image: 'src/assets/images/Mujer Veladora - Byron.jpg',
+        video: 'src/assets/videos/Mujer Veladora   - Byron.mp4'
+    },
+    {
+        id: 'mujeres',
+        title: 'MUJERES',
+        author: 'Byron',
+        year: 'Byron',
+        image: 'src/assets/images/Mujeres - Byron.jpg',
+        video: 'src/assets/videos/Mujeres   - Byron.mp4'
+    },
+    {
+        id: 'velitas',
+        title: 'VELITAS',
+        author: 'Byron',
+        year: 'Byron',
+        image: 'src/assets/images/Velitas - Byron.jpg',
+        video: 'src/assets/videos/Velitas - Byron.mp4'
     }
 ];
 

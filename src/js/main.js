@@ -48,6 +48,9 @@ function init() {
     
     // Event listeners para el elemento de audio
     if (byronAudioElement) {
+        // Configurar velocidad de reproducción a 1.25x
+        byronAudioElement.playbackRate = 1.25;
+        
         byronAudioElement.addEventListener('ended', () => {
             stopAudio();
         });
@@ -89,8 +92,10 @@ function playAudio() {
     byronAudioElement.play()
         .then(() => {
             byronAudio.isPlaying = true;
+            // Asegurar que la velocidad sea 1.25x
+            byronAudioElement.playbackRate = 1.25;
             updateAudioIndicator(true);
-            console.log('Audio reproduciéndose:', byronAudio.audioPath);
+            console.log('Audio reproduciéndose:', byronAudio.audioPath, 'a velocidad 1.25x');
         })
         .catch(error => {
             console.error('Error al reproducir audio:', error);
